@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+<div class="layui-form timo-compile" >
+    <form action="/xsdwm/wjsc/agreeReview" method="post">
+        <input type="hidden" name="id" id="id" th:value="${wjscBranch.id}">
+        <div class="timo-detail-title">审批栏</div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">审批内容</label>
+            <div class="layui-input-block">
+
+                <a th:href="${wjscBranch.fileUrl}" target="_blank" >[[${wjscBranch?.fileName}]]</a>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">审批结果</label>
+            <div class="layui-input-block">
+                <input type="radio" name="dataState" value="审批通过" title="审批通过" checked="">
+                <input type="radio" name="dataState" value="审批不通过" title="审批不通过">
+            </div>
+        </div>
+<!--        <div class="layui-form-item layui-form-text">-->
+<!--            <label class="layui-form-label">审批意见</label>-->
+<!--            <div class="layui-input-block">-->
+<!--                <textarea placeholder="请输入审批意见" class="layui-textarea" name="auditContent"></textarea>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="layui-form-item">
+            <button class="layui-btn btn-secondary close-popup"
+                    style="float:right;background-color: #737c85;border-color: #737c85;"><i
+                    class="fa fa-times-circle"></i> 取消
+            </button>
+            <button class="layui-btn ajax-submit" style="float:right"><i class="fa fa-check-circle"></i> 提交</button>
+        </div>
+    </form>
+</div>
+
+<script th:replace="/common/template :: script"></script>
+<script type="text/javascript" th:src="@{/js/plugins/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript">
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //常规用法
+        laydate.render({
+            elem: '#endDate'
+        });
+    });
+</script>
+</body>
+</html>

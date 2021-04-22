@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body class="timo-layout-page">
+    <div class="layui-form timo-compile">
+    <form th:action="@{/xsdwm/wjsc/saveUpload}">
+        <input type="hidden" name="id" th:if="${wjscBranch}" th:value="${wjscBranch.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-inline">
+                <input type="text" lay-verify="required" class="layui-input"  name="title" th:value="${wjscBranch?.task.title}">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">所属内容</label>
+            <div class="layui-input-block">
+                <textarea placeholder="" class="layui-textarea" name=""  readonly="readonly">[[${wjscBranch?.task.content}]]</textarea>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">附件</label>
+            <div>
+                <a th:href="${wjscBranch?.fileUrl}" target="_blank" id="ak">[[${wjscBranch?.fileName}]]</a>
+                <input type="hidden" lay-verify="required" class="layui-input" id="fileUrl" name="fileUrl" >
+                <input type="hidden" lay-verify="required" class="layui-input" id="fileName" name="fileName" >
+            </div>
+        </div>
+        <form enctype="multipart/form-data" id="batchUpload" method="post"  class="form-horizontal">
+            <div class="layui-form-item">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">选择文件</label>
+                    <div class="layui-input-inline" >
+                        <!--<input type="file" name="file"  id="uploadEventFile">-->
+                        <div class="layui-upload">
+                            <input type="file" name="file"  id="uploadEventFile" style="display:none;">
+                            <button type="button" class="layui-btn layui-btn-warm" id="test8"><i class="layui-icon"></i>上传文件</button>
+                            <span class="layui-inline layui-upload-choose" id="file-zs"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item timo-finally">
+                <button type="button" class="layui-btn" onclick="user.uploadBtn()"><i class="fa fa-check-circle"></i> 上传 </button>
+                <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
+                <button class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</button>
+            </div>
+        </form>
+    </form>
+    </div>
+<script th:replace="/common/template :: script"></script>
+
+    <script type="text/javascript">
+        $(function  () {
+
+            $("#test8").click(function(){
+                $("#uploadEventFile").click()
+            });
+            $("#uploadEventFile").on("change",function(){
+                var filePath=$(this)[0].files[0].name;
+                $("#file-zs").html(filePath);
+            });
+
+        });
+
+        var User = function () {
+            this.init = function () {
+                $("#uploadEventBtn").unbind("click").bind("click", function () {
+                    $("#uploadEventPath").click();
+                });
+                $("#uploadEventFile").bind("change", function () {
+                    $("#uploadEventPath").attr("value", $("#uploadEventFile").val());
+                });
+            };
+            //点击上传钮
+            this.uploadBtn = function () {
+
+                var uploadEventFile = $("#uploadEventFile").val();
+                if (uploadEventFile == '') {
+                    alert("请择docx,pdf,zip上传");
+                } else if (!uploadEventFile.lastIndexOf(".docx") && !uploadEventFile.lastIndexOf(".pdf") && !uploadEventFile.lastIndexOf(".zip")) {//可判断
+                    alert("只能上传docx,pdf,zip文件");
+                } else {
+                    var url = "/xsdwm/wjsc/upload";
+                    var formData = new FormData($('form')[0]);
+                    user.sendAjaxRequest(url, "POST", formData);
+                }
+            };
+
+            this.sendAjaxRequest = function (url, type, data) {
+                $.ajax({
+                    url: url,
+                    type: type,
+                    data: data,
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result)
+                        alert(result.msg);
+                        var aObj = document.getElementById("ak");
+                        aObj.href = result.data.path;
+                        //根据id获取超链接,设置文字内容
+                        aObj.innerText = result.data.originalFilename;
+                        $("#fileUrl").val(result.data.url);
+                        $("#fileName").val(result.data.originalFilename);
+                    },
+                    error: function (result) {
+                        alert(result.msg);
+                    },
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                });
+            };
+        };
+        var user;
+        $(function () {
+            user = new User();
+            user.init();
+        });
+
+
+
+    </script>
+</body>
+</html>
