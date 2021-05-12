@@ -12,13 +12,20 @@
             </colgroup>
             <tbody>
                 <tr>
-                    <th>主键ID</th>
-                    <td th:text="${wjscBranch.id}"></td>
                     <th>标题</th>
-                    <td th:text="${wjscBranch.task.title}"></td>
+                    <td th:text="${wjscBranch.task.title}"  colspan="5"></td>
                 </tr>
                 <tr>
-                    <th>结束时间</th>
+                    <th>所选任务</th>
+                    <td  colspan="5">
+                        <div th:text="${wjscBranch.task.material.parent.parent.parent.name}+'------>'+${wjscBranch.task.material.parent.parent.name}+'------>'+${wjscBranch.task.material.parent.name}+'------>'+${wjscBranch.task.material.name}"></div>
+                </tr>
+                <tr>
+                    <th>需提供的材料</th>
+                    <td th:text="${wjscBranch.task.material.content}" colspan="5"></td>
+                </tr>
+                <tr>
+                    <th>任务截至时间</th>
                     <td th:text="${wjscBranch.task.endTime}"colspan="3"></td>
                 </tr>
                 <tr>
@@ -29,6 +36,14 @@
                     <th>文件</th>
 <!--                    <td th:text="${wjscBranch.fileName}" colspan="3"></td>-->
                     <td colspan="3"><a th:href="${wjscBranch.fileUrl}" target="_blank">[[${wjscBranch?.fileName}]]</a></td>
+                </tr>
+                <tr>
+                    <th>审核意见</th>
+                    <td th:text="${wjscBranch.opinion}" colspan="3"></td>
+                </tr>
+                <tr>
+                    <th>提交时间</th>
+                    <td th:text="${wjscBranch.submitDate}" colspan="3"></td>
                 </tr>
                 <tr>
                     <th>创建者</th>

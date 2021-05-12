@@ -10,7 +10,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">标题</label>
             <div class="layui-input-inline">
-                <input type="text" lay-verify="required" class="layui-input"  name="title" th:value="${wjscBranch?.task.title}">
+                <input type="text" lay-verify="required" class="layui-input" readonly="readonly" name="title" th:value="${wjscBranch?.task.title}">
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
@@ -96,7 +96,6 @@
                     dataType: "json",
                     success: function (result) {
                         console.log(result)
-                        alert(result.msg);
                         var aObj = document.getElementById("ak");
                         aObj.href = result.data.path;
                         //根据id获取超链接,设置文字内容

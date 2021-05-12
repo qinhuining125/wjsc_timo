@@ -1,4 +1,4 @@
-package com.linln.admin.xsdwm.domain;
+package com.linln.admin.annual.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linln.common.enums.StatusEnum;
@@ -14,47 +14,38 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
- * @author 秦惠宁
- * @date 2021/04/16
+ * @author why
+ * @date 2020/10/26
  */
 @Data
 @Entity
-@Table(name="xsdwm_wjsc_branch")
+@Table(name="per_annual_report_flow")
 @EntityListeners(AuditingEntityListener.class)
 @Where(clause = StatusUtil.NOT_DELETE)
-public class WjscBranch implements Serializable {
+public class AnnualReportFlow implements Serializable {
     // 主键ID
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
-    // 所属任务
-    @ManyToOne(fetch=FetchType.LAZY)
-    @NotFound(action=NotFoundAction.IGNORE)
-    @JoinColumn(name="task")
-    @JsonIgnore
-    private Wjsc task;
-    // 责任人
-    @ManyToOne(fetch=FetchType.LAZY)
-    @NotFound(action=NotFoundAction.IGNORE)
-    @JoinColumn(name="liable")
-    @JsonIgnore
-    private User liable;
-    // 标题
-    private String fileName;
-    // 审核意见
-    private String opinion;
-    // 上传文件url
-    private String fileUrl;
-    // 数据状态状态
-    private String dataState;
-    //  提交时间
-    private String submitDate;
+    // 年述职ID
+    private Long annualReportId;
+    // 受理人
+    private Long receiveId;
+    // 备注
+    private String remark;
     // 创建时间
     @CreatedDate
     private Date createDate;
@@ -77,4 +68,6 @@ public class WjscBranch implements Serializable {
     private User updateBy;
     // 数据状态
     private Byte status = StatusEnum.OK.getCode();
+    // 状态
+    private Integer state;
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+<script th:src="@{/js/plugins/jquery-2.2.4.js}" charset="utf-8"></script>
+    <div class="layui-form timo-compile">
+    <form th:action="@{/xsdwm/wjsc/saveDate}">
+        <input type="hidden" name="id" th:if="${wjsc}" th:value="${wjsc.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">任务截至时间</label>
+            <div class="layui-input-inline">
+                <input style="width: 500px"  type="text" lay-verify="required" class="layui-input" id="endTime" name="endTime" th:value="${wjsc?.endTime}"
+                       placeholder="选择任务截至时间">
+            </div>
+        </div>
+        <div class="layui-form-item timo-finally">
+            <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
+            <button class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</button>
+        </div>
+    </form>
+</div>
+<script th:replace="/common/template :: script"></script>
+<script>
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        //常规用法
+        laydate.render({
+            elem: '#endTime'
+        });
+        //年选择器
+        laydate.render({
+            elem: '#year'
+            , type: 'year'
+        });
+
+    });
+</script>
+</body>
+</html>

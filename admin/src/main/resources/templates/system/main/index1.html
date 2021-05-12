@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+    <style>
+        a {
+            color: #005980;
+        }
+
+        .widget-small {
+            background-color: #FFFFFF;
+            overflow: hidden;
+            text-align: center;
+            border-radius: 2px;
+            /*box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);*/
+        }
+
+        .widget-small .fa {
+            float: left;
+            width: 40%;
+            line-height: 80px;
+            color: #FFFFFF;
+        }
+
+        /*.widget-user .fa{*/
+        /*    background-color: #3c6abe;*/
+        /*    border-radius: 50%;*/
+        /*    height: 70px;*/
+        /*    width: 70px;*/
+        /*    text-align: center;*/
+        /*}*/
+        .widget-visit .fa {
+            background-color: #17a2b8;
+            border-radius: 50%;
+        }
+
+        .widget-message .fa {
+            background-color: #fbad4c;
+            border-radius: 50%;
+        }
+
+        .widget-like .fa {
+            background-color: #ff646d;
+            border-radius: 50%;
+        }
+
+        .widget-small-info {
+            /*float: left;*/
+            text-align: left;
+            width: 100%;
+            margin-left: 24px;
+            margin-top: 24px;
+            line-height: 24px;
+        }
+
+        .widget-small-info h4 {
+            font-size: 20px;
+            margin-bottom: 13px;
+            color: rgba(0, 0, 0, 0.85);
+
+        }
+
+        .widget-small-info span {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.75);
+
+        }
+
+        .project-introduce {
+            min-height: 466px;
+        }
+
+        .project-introduce h4 {
+            font-weight: bold;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .project-introduce li {
+            list-style: decimal;
+            margin-left: 28px;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 10px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-info {
+            color: #31708f;
+            background-color: #d9edf7;
+            border-color: #bce8f1;
+        }
+
+        .widget-intro {
+            font-family: PingFangSC-Regular;
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 22px;
+            varter-spacing: 0px;
+            color: rgba(0, 0, 0, 0.45);
+            margin-left: 10px;
+        }
+
+        .layui-card-header {
+
+            font-family: PingFangSC-Medium;
+            font-size: 16px;
+            font-weight: 500;
+            font-stretch: normal;
+            line-height: 24px;
+            varter-spacing: 0px;
+            color: rgba(0, 0, 0, 0.85);
+            padding-top: 20px;
+            margin-left: 16px;
+            border: none;
+        }
+
+        .widget-title {
+            font-family: 'PingFangSC-Medium';
+            font-size: 14px;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: 22px;
+            varter-spacing: 0px;
+            color: #000000;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .layui-card {
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            padding-bottom: 80px;
+            margin-top: 40px
+        }
+
+        .layui-text h3 {
+            font-size: 15px;
+        }
+
+        .layui-card-body {
+            height: 303px;
+            overflow: auto;
+        }
+
+        .widget-small {
+            text-align: left;
+        }
+
+        .widget-title-div {
+            margin-left: 28px;
+        }
+
+        .box-container {
+            background-color: #ffffff;
+
+            border-radius: 2px;
+            /*min-height: 590px;*/
+            min-height: 640px;
+        }
+
+        .divider {
+            background-color: #efefef;
+            margin: 24px;
+
+            height: 1px;
+            /*margin-bottom: 0px;*/
+        }
+
+        .widget-todolist {
+            margin-top: 25px;
+            margin-left: 24px;
+            position: relative;
+        }
+
+        .widget-todolist h5 {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.7);
+            margin-bottom: 5px;
+        }
+
+        .widget-todolist div {
+            font-size: 14px;
+            color: rgba(0, 0, 0, 0.55);
+
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 65%;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .widget-todolist a {
+            line-height: 20px;
+            vertical-align: top;
+            color: #3c6abe;
+            margin-left: 15px
+        }
+
+        .widget-todolist span {
+            line-height: 20px;
+            vertical-align: top;
+            float: right;
+            margin-right: 24px;
+            color: #cdcdcd;
+            font-size: 12px;
+        }
+
+        .tooltip_pop {
+            padding: 2px 6px;
+            height: 16px;
+            color: #ffffff;
+            background: #eb103f;
+            display: inline-block;
+            border-radius: 16px;
+            line-height: 16px;
+        }
+
+        .widget-enter-item {
+            margin-top: 15px;
+        }
+
+        .layui-col-space24 {
+            margin: -12px
+        }
+
+        .layui-col-space24 > * {
+            padding: 12px
+        }
+
+        .widget-container {
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .primary {
+            display: inline-block;
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            color: #fff;
+            background-color: #409eff;
+            border-color: #409eff;
+            -webkit-appearance: none;
+            text-align: center;
+            box-sizing: border-box;
+            outline: none;
+            margin: 0;
+            transition: .1s;
+            font-weight: 500;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+            position: absolute;
+            right: 30px;
+        }
+
+        .el-notification__content {
+            margin: 0px 6px 0 0;
+        }
+    </style>
+    <link rel="stylesheet" href="js/dist/notice.css">
+</head>
+<body class="timo-layout-page">
+<div id="app">
+    <div class="layui-row layui-col-space24">
+        <div class="widget-container" style="height: 100%;min-height: 640px">
+            <div class="widget-small widget-user">
+                <!--            <i class="icon fa fa-users fa-3x"></i>-->
+                <div class="widget-small-info">
+                    <h4>您好，当前有<span id="count" th:text="${ttlToDo}"></span>条待办任务</h4>
+                    <span th:text="${sysUser.nickname}"></span>
+                    <p style="position: absolute;right: 35px" id="showTime"></p>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="widget-small-info">
+                <h4>待办事项<i class="icon fa fa-exclamation" style="color: #e80000;margin-left: 12px"></i></h4>
+            </div>
+
+            <!-- 待办 -->
+            <div class="timo-table-wrap" th:if="!${isBureauLeaders}">
+                <table style="font-size:18px;margin-left: 20px">
+                    <tbody>
+                    <tr th:each="item:${list1}" th:if=" ${item.dataState} =='待提交'">
+                        <td th:text="${item.task.endTime} + ',' +  ${item.task.title} "></td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="open-popup" data-title="详细信息"
+                               th:attr="data-url=@{'/xsdwm/wjsc/wbdetail/'+${item.id}}" data-size="800,600"
+                               href="#">详细</a>
+                            <a class="ajax-get" data-msg="您是否确认提交"
+                               th:href="@{/xsdwm/wjsc/fileSubmit(ids=${item.id})}">提交</a>
+                        </td>
+                    </tr>
+                    <tr th:each="item:${list1}" th:if=" ${item.dataState} =='待上传'">
+                        <td th:text="${item.task.endTime} + ',' +  ${item.task.title} "></td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="open-popup" data-title="详细信息"
+                               th:attr="data-url=@{'/xsdwm/wjsc/fileupload/'+${item.id}}" data-size="800,600" href="#">文件上传</a>
+                        </td>
+                    </tr>
+                    <tr th:each="item:${list1}" th:if=" ${item.dataState} =='审批不通过'">
+                        <td th:text="${item.task.endTime} + ',' +  ${item.task.title} "></td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="open-popup" data-title="详细信息"
+                               th:attr="data-url=@{'/xsdwm/wjsc/fileupload/'+${item.id}}" data-size="800,600" href="#">文件上传</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="timo-table-wrap" th:if="${isBureauLeaders}">
+                <table style="font-size:18px;margin-left: 20px">
+                    <tbody>
+                    <tr th:each="item:${list1}" th:if="${item.dataState}=='待审批'">
+                        <td th:text="${item.task.endTime} + ',' +  ${item.task.title} "></td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a class="open-popup" data-title="详细信息"
+                               th:attr="data-url=@{'/xsdwm/wjsc/review/'+${item.id}}" data-size="800,600" href="#">审批</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{/js/echarts.min.js}" charset="utf-8"></script>
+<script th:replace="/common/template :: script"></script>
+
+<script th:src="@{/js/jquery.min.js}" charset="utf-8"></script>
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</body>
+</html>
+

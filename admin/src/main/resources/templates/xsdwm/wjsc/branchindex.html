@@ -58,9 +58,10 @@
                     <!--                        <th>主键ID</th>-->
                     <th>标题</th>
                     <!--                        <th>内容</th>-->
-                    <th>结束时间</th>
-                    <th>姓名</th>
+                    <th>任务截至时间</th>
+                    <th>单位名</th>
                     <th>文件</th>
+                    <th>提交时间</th>
                     <th>状态</th>
                     <!--                        <th>创建时间</th>-->
                     <!--                        <th>更新时间</th>-->
@@ -74,9 +75,10 @@
                         <i class="layui-icon layui-icon-ok"></i></label></td>
                     <!--                        <td th:text="${item.id}">主键ID</td>-->
                     <td th:text="${item.task.title}">标题</td>
-                    <td th:text="${item.task.endTime}">结束时间</td>
-                    <td th:text="${item.liable.nickname}">主键ID</td>
+                    <td th:text="${item.task.endTime}">任务截至时间</td>
+                    <td th:text="${item.liable.nickname}">单位名</td>
                     <td><a th:href="${item.fileUrl}" target="_blank">[[${item?.fileName}]]</a></td>
+                    <td th:text="${item.submitDate}">提交时间</td>
                     <td th:text="${item.dataState}">状态</td>
                     <td>
                         <!--                            <a class="open-popup" data-title="编辑新时代文明文件上传系统" th:attr="data-url=@{'/xsdwm/wjsc/edit/'+${item.id}}" data-size="auto" href="#">编辑</a>-->
